@@ -17,7 +17,7 @@ export default [
     pathToManifests: ["api/openapi-spec/swagger.json"],
     // Ignore Kubernetes patch releases and older than v1.9
     filterTag: (tag: string) =>
-      tag.endsWith(".0") && tag.startsWith("v1.") && tag.length >= 7,
+      tag.endsWith(".0") && (tag.startsWith("v1.28") || tag.startsWith("v1.29") || tag.startsWith("v1.30") || tag.startsWith("v1.31") || tag.startsWith("v1.32")),
     mapTag: (tag: string) => tag.substring(0, tag.length - 2),
   },
   {
@@ -26,7 +26,7 @@ export default [
     logo: "https://avatars.githubusercontent.com/u/36015203?s=200&v=4",
     repo: "kubernetes-sigs/gateway-api",
     pathToManifests: ["config/crd/standard"],
-    filterTag: (tag: string) => tag.startsWith("v1."),
+    filterTag: (tag: string) => tag.startsWith("v1.2"),
   },
   {
     name: "Cluster API",
@@ -34,7 +34,7 @@ export default [
     logo: "https://avatars.githubusercontent.com/u/36015203?s=200&v=4",
     repo: "kubernetes-sigs/cluster-api",
     pathToManifests: ["config/crd/bases"],
-    filterTag: (tag: string) => tag.startsWith("v1."),
+    filterTag: (tag: string) => tag.startsWith("v1.9"),
   },
   {
     name: "Istio",
@@ -47,7 +47,7 @@ export default [
       "manifests/charts/base/crds/crd-all.gen.yaml",
       "manifests/charts/base/files/crd-all.gen.yaml",
     ],
-    filterTag: (tag: string) => tag.startsWith("1."),
+    filterTag: (tag: string) => tag.startsWith("1.24"),
   },
   {
     name: "Keda",
@@ -55,7 +55,7 @@ export default [
     logo: "https://avatars.githubusercontent.com/u/49917779?s=200&v=4",
     repo: "kedacore/keda",
     pathToManifests: ["deploy/crds", "config/crd/bases"],
-    filterTag: (tag: string) => tag.startsWith("v2."),
+    filterTag: (tag: string) => tag.startsWith("v2.16"),
   },
   {
     name: "Kyverno",
@@ -63,7 +63,7 @@ export default [
     logo: "https://avatars.githubusercontent.com/u/68448710?s=200&v=4",
     repo: "kyverno/kyverno",
     pathToManifests: ["definitions/crds", "config/crds"],
-    filterTag: (tag: string) => tag.startsWith("v1."),
+    filterTag: (tag: string) => tag.startsWith("v1.13"),
   },
   {
     name: "CloudNativePG",
@@ -71,7 +71,7 @@ export default [
     logo: "https://avatars.githubusercontent.com/u/100373852?s=200&v=4",
     repo: "cloudnative-pg/cloudnative-pg",
     pathToManifests: ["config/crd/bases"],
-    filterTag: (tag: string) => tag.startsWith("v1."),
+    filterTag: (tag: string) => tag.startsWith("v1.25"),
   },
   {
     name: "cert-manager",
@@ -80,7 +80,7 @@ export default [
     repo: "cert-manager/cert-manager",
     releaseFileName: "cert-manager.yaml",
     filterTag: (tag: string) => 
-      !tag.startsWith("cmd/ctl") && tag.startsWith("v1."),
+      !tag.startsWith("cmd/ctl") && tag.startsWith("v1.16"),
   },
   {
     name: "Cilium",
@@ -90,7 +90,7 @@ export default [
     pathToManifests: ["examples/crds", "pkg/k8s/apis/cilium.io/client/crds"],
     // For some reason, the cilium repo has duplicate tags like "v1.10.0" and "1.10.0"
     filterTag: (tag: string) => 
-      !tag.startsWith("v") && tag.startsWith("1."),
+      !tag.startsWith("v") && tag.startsWith("1.16"),
   },
   {
     name: "Argo CD", //  // https://github.com/argoproj/argo-cd
@@ -99,7 +99,7 @@ export default [
     repo: "argoproj/argo-cd",
     pathToManifests: ["manifests/crds"],
     filterTag: (tag: string) => 
-      tag.startsWith("v2.") && !tag.includes("hf") && !tag.includes("stable") && !tag.includes("rc"),
+      (tag.startsWith("v2.11.2") || tag.startsWith("v2.13") || tag.startsWith("v2.14"))&& !tag.includes("hf") && !tag.includes("stable") && !tag.includes("rc"),
   },
   {
     name: "Argo Workflows", // https://github.com/argoproj/argo-workflows
@@ -108,7 +108,7 @@ export default [
     repo: "argoproj/argo-workflows",
     pathToManifests: ["manifests/base/crds/full"],
     filterTag: (tag: string) => 
-      tag.startsWith("v3.") && !tag.includes("stable") && !tag.includes("rc"),
+      (tag == "v3.5.1" || tag.startsWith("v3.6") )&& !tag.includes("stable") && !tag.includes("rc"),
   },
   {
     name: "Argo Events", // https://github.com/argoproj/argo-events
@@ -117,7 +117,7 @@ export default [
     repo: "argoproj/argo-events",
     pathToManifests: ["manifests/base/crds"],
     filterTag: (tag: string) => 
-      tag.startsWith("v1.") && !tag.includes("stable") && !tag.includes("rc"),
+      (tag.startsWith("v1.7.5") || tag.startsWith("v1.9") ) && !tag.includes("stable") && !tag.includes("rc"),
   },
   {
     name: "Argo Rollouts", // https://github.com/argoproj/argo-rollouts
@@ -126,7 +126,7 @@ export default [
     repo: "argoproj/argo-rollouts",
     pathToManifests: ["manifests/crds"],
     filterTag: (tag: string) => 
-      tag.startsWith("v1.") && !tag.includes("stable") && !tag.includes("rc"),
+      tag.startsWith("v1.7") && !tag.includes("stable") && !tag.includes("rc"),
   },
   {
     name: "Prometheus Operator", // https://github.com/prometheus-operator/prometheus-operator + https://github.com/prometheus-operator/kube-prometheus
@@ -158,7 +158,8 @@ export default [
     logo: "https://avatars.githubusercontent.com/u/124196698?s=48&v=4",
     repo: "kube-logging/logging-operator",
     pathToManifests: ["charts/logging-operator/crds"],
-    filterTag: (tag: string) => tag.startsWith("4.") || tag.startsWith("5."),
+    filterTag: (tag: string) => 
+      (tag.startsWith("4.5.1") || tag.startsWith("5.")) && !tag.includes("syslog-ng") && !tag.includes("scc-permissions"),
   },
   {
     name: "GCP Config Connector", // https://github.com/GoogleCloudPlatform/k8s-config-connector
@@ -167,7 +168,7 @@ export default [
     repo: "GoogleCloudPlatform/k8s-config-connector",
     pathToManifests: ["crds"],
     filterTag: (tag: string) => 
-      tag.startsWith("v1.12") && tag.length >= 8 && !tag.includes("rc"),
+      tag.startsWith("v1.127") && tag.length >= 8 && !tag.includes("rc"),
   },
   {
     name: "Strimzi Kafka Operator", // https://github.com/strimzi/strimzi-kafka-operator
@@ -176,7 +177,7 @@ export default [
     repo: "strimzi/strimzi-kafka-operator",
     pathToManifests: ["helm-charts/helm3/strimzi-kafka-operator/crds"],
     filterTag: (tag: string) => 
-      (tag.startsWith("0.3") || tag.startsWith("0.4")) && tag.length >= 6,
+      (tag.startsWith("0.36.1") || tag.startsWith("0.4")) && tag.length >= 6,
   },
   {
     name: "rbac manager", // https://github.com/FairwindsOps/rbac-manager
@@ -184,7 +185,7 @@ export default [
     logo: "https://avatars.githubusercontent.com/u/8583528?s=48&v=4",
     repo: "FairwindsOps/rbac-manager",
     pathToManifests: ["deploy/2_crd.yaml"],
-    filterTag: (tag: string) => tag.startsWith("v1."),
+    filterTag: (tag: string) => tag.startsWith("v1.9"),
   },
   {
     name: "Vertical Pod Autoscaler", // https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler
@@ -192,7 +193,7 @@ export default [
     logo: "https://avatars.githubusercontent.com/u/13629408?s=48&v=4",
     repo: "kubernetes/autoscaler",
     pathToManifests: ["vertical-pod-autoscaler/deploy/vpa-v1-crd.yaml"],
-    filterTag: (tag: string) => tag.startsWith("vertical-pod-autoscaler-1"),
+    filterTag: (tag: string) => tag.startsWith("vertical-pod-autoscaler-1.2"),
     mapTag: (tag: string) => tag.substring(tag.length - 5, tag.length),
   },
   {
@@ -213,7 +214,7 @@ export default [
     logo: "https://avatars.githubusercontent.com/u/7195757?s=48&v=4",
     repo: "grafana/grafana-operator",
     pathToManifests: ["deploy/kustomize/base/crds.yaml"],
-    filterTag: (tag: string) => tag.startsWith("v5."),
+    filterTag: (tag: string) => tag.startsWith("v5.16"),
   },
   {
     name: "MongoDB Community Operator", // https://github.com/mongodb/mongodb-kubernetes-operator
@@ -221,7 +222,7 @@ export default [
     logo: "https://avatars.githubusercontent.com/u/45120?s=48&v=4",
     repo: "mongodb/mongodb-kubernetes-operator",
     pathToManifests: ["config/crd/bases/mongodbcommunity.mongodb.com_mongodbcommunity.yaml"],
-    filterTag: (tag: string) => tag.startsWith("v0."),
+    filterTag: (tag: string) => tag.startsWith("v0.12"),
   },
   {
     name: "Keycloak Operator", // https://github.com/keycloak/keycloak + https://github.com/keycloak/keycloak-k8s-resources
@@ -229,14 +230,6 @@ export default [
     logo: "https://avatars.githubusercontent.com/u/4921466?s=48&v=4",
     repo: "keycloak/keycloak-k8s-resources",
     pathToManifests: ["kubernetes/keycloaks.k8s.keycloak.org-v1.yml", "kubernetes/keycloakrealmimports.k8s.keycloak.org-v1.yml"],
-    filterTag: (tag: string) => tag.startsWith("26."),
+    filterTag: (tag: string) => tag.startsWith("26.1"),
   },
-  // {
-  //   name: "Otterize Intents Controller", // https://github.com/otterize/intents-operator + https://github.com/otterize/helm-charts
-  //   slug: "otterize-intents-controller",
-  //   logo: "https://avatars.githubusercontent.com/u/87747815?s=48&v=4",
-  //   repo: "otterize/helm-charts",
-  //   pathToManifests: [""], // WARN: CRDs created by the operator
-  //   filterTag: (tag: string) => tag.startsWith("v4."),
-  // },
 ];
