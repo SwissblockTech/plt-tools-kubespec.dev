@@ -14,9 +14,20 @@
 
 Contributions are welcome!
 
+### Prepare
+
 - clone the repo
 - run `npm install`
+
+### Run the explorer
+
 - run `npm run dev`
+
+### Add new projects
+
+- add new projects to `src/lib/kube/projects.js`
+- run `npm run download`
+- run `npm run build`
 
 ## 📃 License
 
