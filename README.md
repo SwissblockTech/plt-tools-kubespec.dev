@@ -47,6 +47,7 @@ MIT
 
 1. [x] add new projects
 1. [x] add examples under CRD page
+1. [ ] fix "releaseFileName" error during build (scripts/download.ts, line 123)
 1. [ ] containerise
 1. [ ] customise what's necessary to deploy in our environment
 1. [ ] customise "filterTag" to set something like ">= version"
