@@ -96,6 +96,6 @@ const metadata = await readMetadata(project, gvk);
   </div>
 </div>
 
-<ChangeHistory project={project} tag={tag} gvk={gvk} />
 <ExampleList examples={metadata.examples} kind={gvk.kind} />
 <ResourceLinks links={metadata.links} kind={gvk.kind} />
+<ChangeHistory project={project} tag={tag} gvk={gvk} />
