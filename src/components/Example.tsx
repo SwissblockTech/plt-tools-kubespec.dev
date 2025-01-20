@@ -8,7 +8,8 @@ export type Props = {
 };
 
 export function Example(props: Props) {
-  const [open, setOpen] = useState(props.index === 0);
+  // const [open, setOpen] = useState(props.index === 0); // expand the first one
+  const [open, setOpen] = useState(false); // keep all collapsed
 
   const toggle = () => setOpen((o) => !o);
 
