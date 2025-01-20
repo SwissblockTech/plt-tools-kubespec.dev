@@ -18,7 +18,7 @@ export default [
     // Ignore Kubernetes patch releases and older than v1.9
     filterTag: (tag: string) =>
       tag.endsWith(".0") && (tag.startsWith("v1.28") || tag.startsWith("v1.29") || tag.startsWith("v1.30") || tag.startsWith("v1.31") || tag.startsWith("v1.32")),
-    mapTag: (tag: string) => tag.substring(0, tag.length - 2),
+    // mapTag: (tag: string) => tag.substring(0, tag.length - 2),
   },
   {
     name: "Gateway API",
@@ -29,68 +29,12 @@ export default [
     filterTag: (tag: string) => tag.startsWith("v1.2"),
   },
   {
-    name: "Cluster API",
-    slug: "cluster-api",
-    logo: "https://avatars.githubusercontent.com/u/36015203?s=200&v=4",
-    repo: "kubernetes-sigs/cluster-api",
-    pathToManifests: ["config/crd/bases"],
-    filterTag: (tag: string) => tag.startsWith("v1.9"),
-  },
-  {
-    name: "Istio",
-    slug: "istio",
-    logo: "https://avatars.githubusercontent.com/u/23534644?s=200&v=4",
-    repo: "istio/istio",
-    pathToManifests: [
-      "install/kubernetes/helm/istio/templates/crds.yaml",
-      "manifests/charts/base/files/gen-istio-cluster.yaml",
-      "manifests/charts/base/crds/crd-all.gen.yaml",
-      "manifests/charts/base/files/crd-all.gen.yaml",
-    ],
-    filterTag: (tag: string) => tag.startsWith("1.24"),
-  },
-  {
-    name: "Keda",
-    slug: "keda",
-    logo: "https://avatars.githubusercontent.com/u/49917779?s=200&v=4",
-    repo: "kedacore/keda",
-    pathToManifests: ["deploy/crds", "config/crd/bases"],
-    filterTag: (tag: string) => tag.startsWith("v2.16"),
-  },
-  {
     name: "Kyverno",
     slug: "kyverno",
     logo: "https://avatars.githubusercontent.com/u/68448710?s=200&v=4",
     repo: "kyverno/kyverno",
     pathToManifests: ["definitions/crds", "config/crds"],
     filterTag: (tag: string) => tag.startsWith("v1.13"),
-  },
-  {
-    name: "CloudNativePG",
-    slug: "cloudnative-pg",
-    logo: "https://avatars.githubusercontent.com/u/100373852?s=200&v=4",
-    repo: "cloudnative-pg/cloudnative-pg",
-    pathToManifests: ["config/crd/bases"],
-    filterTag: (tag: string) => tag.startsWith("v1.25"),
-  },
-  {
-    name: "cert-manager",
-    slug: "cert-manager",
-    logo: "https://avatars.githubusercontent.com/u/39950598?s=200&v=4",
-    repo: "cert-manager/cert-manager",
-    releaseFileName: "cert-manager.yaml",
-    filterTag: (tag: string) => 
-      !tag.startsWith("cmd/ctl") && tag.startsWith("v1.16"),
-  },
-  {
-    name: "Cilium",
-    slug: "cilium",
-    logo: "https://avatars.githubusercontent.com/u/21054566?s=200&v=4",
-    repo: "cilium/cilium",
-    pathToManifests: ["examples/crds", "pkg/k8s/apis/cilium.io/client/crds"],
-    // For some reason, the cilium repo has duplicate tags like "v1.10.0" and "1.10.0"
-    filterTag: (tag: string) => 
-      !tag.startsWith("v") && tag.startsWith("1.16"),
   },
   {
     name: "Argo CD", //  // https://github.com/argoproj/argo-cd
@@ -209,22 +153,6 @@ export default [
     filterTag: (tag: string) => tag.startsWith("v34."),
   },
   {
-    name: "Grafana Operator", // https://github.com/grafana/grafana-operator
-    slug: "grafana-operator",
-    logo: "https://avatars.githubusercontent.com/u/7195757?s=48&v=4",
-    repo: "grafana/grafana-operator",
-    pathToManifests: ["deploy/kustomize/base/crds.yaml"],
-    filterTag: (tag: string) => tag.startsWith("v5.16"),
-  },
-  {
-    name: "MongoDB Community Operator", // https://github.com/mongodb/mongodb-kubernetes-operator
-    slug: "mongodb-community-operator",
-    logo: "https://avatars.githubusercontent.com/u/45120?s=48&v=4",
-    repo: "mongodb/mongodb-kubernetes-operator",
-    pathToManifests: ["config/crd/bases/mongodbcommunity.mongodb.com_mongodbcommunity.yaml"],
-    filterTag: (tag: string) => tag.startsWith("v0.12"),
-  },
-  {
     name: "Keycloak Operator", // https://github.com/keycloak/keycloak + https://github.com/keycloak/keycloak-k8s-resources
     slug: "keycloak-operator",
     logo: "https://avatars.githubusercontent.com/u/4921466?s=48&v=4",
@@ -232,4 +160,76 @@ export default [
     pathToManifests: ["kubernetes/keycloaks.k8s.keycloak.org-v1.yml", "kubernetes/keycloakrealmimports.k8s.keycloak.org-v1.yml"],
     filterTag: (tag: string) => tag.startsWith("26.1"),
   },
+  // {
+  //   name: "Grafana Operator", // https://github.com/grafana/grafana-operator
+  //   slug: "grafana-operator",
+  //   logo: "https://avatars.githubusercontent.com/u/7195757?s=48&v=4",
+  //   repo: "grafana/grafana-operator",
+  //   pathToManifests: ["deploy/kustomize/base/crds.yaml"],
+  //   filterTag: (tag: string) => tag.startsWith("v5.16"),
+  // },
+  // {
+  //   name: "MongoDB Community Operator", // https://github.com/mongodb/mongodb-kubernetes-operator
+  //   slug: "mongodb-community-operator",
+  //   logo: "https://avatars.githubusercontent.com/u/45120?s=48&v=4",
+  //   repo: "mongodb/mongodb-kubernetes-operator",
+  //   pathToManifests: ["config/crd/bases/mongodbcommunity.mongodb.com_mongodbcommunity.yaml"],
+  //   filterTag: (tag: string) => tag.startsWith("v0.12"),
+  // },
+  // {
+  //   name: "Cluster API",
+  //   slug: "cluster-api",
+  //   logo: "https://avatars.githubusercontent.com/u/36015203?s=200&v=4",
+  //   repo: "kubernetes-sigs/cluster-api",
+  //   pathToManifests: ["config/crd/bases"],
+  //   filterTag: (tag: string) => tag.startsWith("v1.9"),
+  // },
+  // {
+  //   name: "Istio",
+  //   slug: "istio",
+  //   logo: "https://avatars.githubusercontent.com/u/23534644?s=200&v=4",
+  //   repo: "istio/istio",
+  //   pathToManifests: [
+  //     "install/kubernetes/helm/istio/templates/crds.yaml",
+  //     "manifests/charts/base/files/gen-istio-cluster.yaml",
+  //     "manifests/charts/base/crds/crd-all.gen.yaml",
+  //     "manifests/charts/base/files/crd-all.gen.yaml",
+  //   ],
+  //   filterTag: (tag: string) => tag.startsWith("1.24"),
+  // },
+  // {
+  //   name: "Keda",
+  //   slug: "keda",
+  //   logo: "https://avatars.githubusercontent.com/u/49917779?s=200&v=4",
+  //   repo: "kedacore/keda",
+  //   pathToManifests: ["deploy/crds", "config/crd/bases"],
+  //   filterTag: (tag: string) => tag.startsWith("v2.16"),
+  // },
+  // {
+  //   name: "CloudNativePG",
+  //   slug: "cloudnative-pg",
+  //   logo: "https://avatars.githubusercontent.com/u/100373852?s=200&v=4",
+  //   repo: "cloudnative-pg/cloudnative-pg",
+  //   pathToManifests: ["config/crd/bases"],
+  //   filterTag: (tag: string) => tag.startsWith("v1.25"),
+  // },
+  // {
+  //   name: "cert-manager",
+  //   slug: "cert-manager",
+  //   logo: "https://avatars.githubusercontent.com/u/39950598?s=200&v=4",
+  //   repo: "cert-manager/cert-manager",
+  //   releaseFileName: "cert-manager.yaml",
+  //   filterTag: (tag: string) => 
+  //     !tag.startsWith("cmd/ctl") && tag.startsWith("v1.16"),
+  // },
+  // {
+  //   name: "Cilium",
+  //   slug: "cilium",
+  //   logo: "https://avatars.githubusercontent.com/u/21054566?s=200&v=4",
+  //   repo: "cilium/cilium",
+  //   pathToManifests: ["examples/crds", "pkg/k8s/apis/cilium.io/client/crds"],
+  //   // For some reason, the cilium repo has duplicate tags like "v1.10.0" and "1.10.0"
+  //   filterTag: (tag: string) => 
+  //     !tag.startsWith("v") && tag.startsWith("1.16"),
+  // },
 ];
