@@ -39,15 +39,6 @@ tasks:
         -t $(REGISTRY_PREFIX)$(CONTAINER_NAME):$(CONTAINER_TAG) \
         --build-arg GH_TOKEN=$(GH_TOKEN)
 
-  run:
-    desc: Push container image to Container Registry
-    requires:
-      vars: [ REGISTRY_PREFIX, CONTAINER_NAME, CONTAINER_TAG ]
-    cmds:
-      - |
-        docker run -ti --rm --name kubespec-cicd \
-        $(REGISTRY_PREFIX)$(CONTAINER_NAME):$(CONTAINER_TAG)
-
   push:
     desc: Push container image to Container Registry
     requires:
