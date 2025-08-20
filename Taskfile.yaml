@@ -2,7 +2,7 @@ version: '3'
 
 env:
   ## container
-  REGISTRY_PREFIX: eu.gcr.io/ceiba-platform-cicd/
+  REGISTRY_PREFIX: europe-docker.pkg.dev/ceiba-platform-cicd/
   CONTAINER_NAME: tools/kubespec-cicd
 
 
@@ -14,34 +14,30 @@ tasks:
 
   download:
     desc: Download CRDs (requires GH_TOKEN)
-    deps: [install]
-    preconditions:
-      - sh: test -n "$GH_TOKEN"
-        msg: "GH_TOKEN must be set (export GH_TOKEN=...)."
+    requires:
+      vars: [GH_TOKEN]
     cmds:
       - npm run download
 
   build:
     desc: Build static site (dist/)
-    deps: [download]
     cmds:
       - npm run build
 
   lint:
-    desc: Run linter (Astro + TypeScript)
-    deps: [install]
+    desc: Run Astro + TypeScript checks
     cmds:
-      - npx eslint . --ext .ts,.tsx,.astro
+      - npm run astro check
 
   build-image:
     desc: Build container image
     requires:
-      vars: [ REGISTRY_PREFIX, CONTAINER_NAME, CONTAINER_TAG, GITLAB_USERNAME, GITLAB_TOKEN ]
+      vars: [ REGISTRY_PREFIX, CONTAINER_NAME, CONTAINER_TAG, GH_TOKEN ]
     cmds:
       - |
         docker build . \
         -t $(REGISTRY_PREFIX)$(CONTAINER_NAME):$(CONTAINER_TAG) \
-        --build-arg GITHUB_TOKEN=$(GITHUB_TOKEN)
+        --build-arg GH_TOKEN=$(GH_TOKEN)
 
   run:
     desc: Push container image to Container Registry
