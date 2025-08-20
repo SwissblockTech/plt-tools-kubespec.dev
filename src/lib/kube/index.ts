@@ -1,13 +1,12 @@
 import { readdir } from "fs/promises";
 import type { GVK, Project, Resource } from "./types";
 import ALL_PROJECTS from "./projects";
-import semver from "semver";
 import { listAllCRDs } from "./crds";
 import { compareVersions, listAllBuiltInResources } from "./kubernetes";
 import { compareCRDVersion } from "./compare";
+
 export * from "./compare";
 export * from "./metadata";
-
 export * from "./types";
 
 let cachedProjects: Project[] | undefined = undefined;
@@ -35,7 +34,7 @@ export async function listProjects(): Promise<Project[]> {
       tags:
         project.slug === "kubernetes"
           ? [...tags].sort(compareVersions).reverse()
-          : semver.rsort([...tags]),
+          : [...tags].sort().reverse(), // 👈 simple lexicographic sort, no semver filter
     });
   }
   cachedProjects = projects;
@@ -66,7 +65,7 @@ export async function listAllResources(
   if (cached) {
     return cached;
   }
-  // Kubernetes is a special case with Swagger files instead of CRD Manifests
+
   const resources =
     slug === "kubernetes"
       ? await listAllBuiltInResources(tag)
@@ -86,7 +85,6 @@ export async function listAllResources(
   }
 
   const latestResources = Array.from(latestByKind.values());
-
   resourcesCache.set(cacheKey, latestResources);
   return latestResources;
 }
