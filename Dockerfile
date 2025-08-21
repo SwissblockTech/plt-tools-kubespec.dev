@@ -4,14 +4,13 @@ FROM node:22.0.0-alpine@sha256:1b2479dd35a99687d6638f5976fd235e26c5b37e8122f786f
 
 WORKDIR /app
 
-# Install deps first (cache-friendly)
 COPY package*.json ./
 RUN npm ci
 
 # Copy source
 COPY . ./
 
-ARG GITHUB_TOKEN
+ARG GH_TOKEN
 
 
 # Download CRDs and build the static site
@@ -23,7 +22,6 @@ FROM node:22.0.0-alpine@sha256:1b2479dd35a99687d6638f5976fd235e26c5b37e8122f786f
 
 WORKDIR /app
 
-
 COPY package*.json ./
 RUN npm ci --omit=dev
 
@@ -33,10 +31,9 @@ COPY --from=builder /app/dist ./dist
 ENV PORT=4321
 
 # Run as non-root for security
-USER 1001
+USER node
 
 EXPOSE 4321
-
 
 # Serve the static site
 CMD ["npm", "run", "start"]

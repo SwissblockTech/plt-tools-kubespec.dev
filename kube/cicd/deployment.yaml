@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubespec-cicd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubespec-cicd
+  template:
+    spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 15
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+      containers:
+      - name: kubespec-cicd
+        image: europe-docker.pkg.dev/ceiba-platform-cicd/sbt/tools/kubespec-cicd
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 4321
+          name: port
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
+        securityContext:
+          privileged: false
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - ALL
