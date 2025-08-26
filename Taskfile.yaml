@@ -3,7 +3,7 @@ version: '3'
 env:
   ## container
   REGISTRY_PREFIX: europe-docker.pkg.dev/ceiba-platform-cicd/
-  CONTAINER_NAME: tools/kubespec-cicd
+  CONTAINER_NAME: tools/kubespecdev
 
 
 tasks:
