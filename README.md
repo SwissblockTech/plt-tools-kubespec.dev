@@ -8,6 +8,7 @@
 - Links to official Kubernetes documentation and useful resources
 - Support for popular CRDs
 
+
 ![](./screenshot.png)
 
 ## Contributing
