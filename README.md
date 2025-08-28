@@ -30,7 +30,7 @@ Contributions are welcome!
 - run `npm run download` (i)
 - run `npm run build`
 
-(i) A GitHub Access Token is required. Please set the `GH_TOKEN` environment variable.
+(i) A GitHub Access Token is required. Please set the `GITHUB_TOKEN` environment variable.
 
 ## 📃 License
 
