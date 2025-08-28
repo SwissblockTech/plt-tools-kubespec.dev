@@ -23,7 +23,7 @@ async function findTags(project: ProjectDef) {
   const response = await fetch(
     `https://api.github.com/repos/${project.repo}/git/refs/tags`,
     {
-      headers: { Authorization: `Bearer ${process.env.GH_TOKEN}` },
+      headers: { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` },
     }
   );
 
@@ -60,7 +60,7 @@ async function downloadManifestsFromGit(
     const resp = await fetch(
       `https://api.github.com/repos/${project.repo}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(tag)}`,
       {
-        headers: { Authorization: `Bearer ${process.env.GH_TOKEN}` },
+        headers: { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` },
       }
     );
 
