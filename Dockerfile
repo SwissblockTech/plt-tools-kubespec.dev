@@ -10,7 +10,7 @@ RUN npm ci
 # Copy source
 COPY . ./
 
-ARG GH_TOKEN
+ARG GITHUB_TOKEN
 
 # Download CRDs and build the static site
 RUN npm run download && npm run build

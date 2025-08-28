@@ -13,9 +13,9 @@ tasks:
       - npm ci
 
   download:
-    desc: Download CRDs (requires GH_TOKEN)
+    desc: Download CRDs (requires GITHUB_TOKEN)
     requires:
-      vars: [GH_TOKEN]
+      vars: [GITHUB_TOKEN]
     cmds:
       - npm run download
 
@@ -32,12 +32,12 @@ tasks:
   build-image:
     desc: Build container image
     requires:
-      vars: [ REGISTRY_PREFIX, CONTAINER_NAME, CONTAINER_TAG, GH_TOKEN ]
+      vars: [ REGISTRY_PREFIX, CONTAINER_NAME, CONTAINER_TAG, GITHUB_TOKEN ]
     cmds:
       - |
         docker build . \
         -t $(REGISTRY_PREFIX)$(CONTAINER_NAME):$(CONTAINER_TAG) \
-        --build-arg GH_TOKEN=$(GH_TOKEN)
+        --build-arg GITHUB_TOKEN=$(GITHUBH_TOKEN)
 
   push:
     desc: Push container image to Container Registry

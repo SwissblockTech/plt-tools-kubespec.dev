@@ -100,8 +100,8 @@ async function downloadManifestsFromGit(
 }
 
 // ---- Main ----
-if (!process.env.GH_TOKEN) {
-  throw new Error("GH_TOKEN environment variable is required");
+if (!process.env.GITHUB_TOKEN) {
+  throw new Error("GITHUB_TOKEN environment variable is required");
 }
 
 for (const project of ALL_PROJECTS) {
