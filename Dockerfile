@@ -18,7 +18,11 @@ RUN npm run download && npm run build
 # Runtime stage
 FROM node:22.0.0-alpine@sha256:1b2479dd35a99687d6638f5976fd235e26c5b37e8122f786fcd5fe231d63de5b
 
+
 WORKDIR /app
+
+ENV ASTRO_TELEMETRY_DISABLED=1 \
+    HOME=/home/node
 
 COPY package*.json ./
 RUN npm ci --omit=dev
@@ -28,7 +32,6 @@ COPY --from=builder /app/dist ./dist
 
 ENV PORT=4321
 
-# Run as non-root for security
 USER node
 
 EXPOSE 4321
