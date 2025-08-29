@@ -12,18 +12,6 @@ tasks:
     cmds:
       - npm ci
 
-  download:
-    desc: Download CRDs (requires GITHUB_TOKEN)
-    requires:
-      vars: [GITHUB_TOKEN]
-    cmds:
-      - npm run download
-
-  build:
-    desc: Build static site (dist/)
-    cmds:
-      - npm run build
-
   lint:
     desc: Run Astro + TypeScript checks
     cmds:
