@@ -31,6 +31,12 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    preview: {
+      allowedHosts: ['kubespec.cicd.swissblock.tech']
+    },
+    server: {
+      allowedHosts: ['kubespec.cicd.swissblock.tech']
+    }
   },
 
   adapter: vercel(),
