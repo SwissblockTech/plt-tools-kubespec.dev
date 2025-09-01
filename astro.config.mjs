@@ -30,18 +30,8 @@ export default defineConfig({
   ],
 
   vite: {
-    server: {
-      host: true,
-      port: 4321,
-      allowedHosts: ['kubespec.cicd.swissblock.tech'],
-    },
-    preview: {
-      host: true,
-      port: 4321,
-      allowedHosts: ['kubespec.cicd.swissblock.tech'],
-    },
+    plugins: [tailwindcss()],
   },
-
 
   adapter: vercel(),
 });
