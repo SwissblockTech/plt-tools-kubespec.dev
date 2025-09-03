@@ -25,7 +25,7 @@ ENV ASTRO_TELEMETRY_DISABLED=1 \
     HOME=/home/node
 
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm ci
 
 # Copy built static site
 COPY --from=builder /app/dist ./dist

@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "download": "tsx ./scripts/download",
     "build": "astro check && astro build",
-    "preview": "astro preview --host --allowed-hosts kubespec.cicd.swissblock.tech --port 4321",
+    "preview": "astro preview --host --port 4321",
     "start": "astro preview --host --allowed-hosts kubespec.cicd.swissblock.tech --port 4321",
     "astro": "astro"
   },
