@@ -1,40 +1,23 @@
-# Builder stage
+FROM node:22.0.0-alpine@sha256:1b2479dd35a99687d6638f5976fd235e26c5b37e8122f786fcd5fe231d63de5b
 
-FROM node:22.0.0-alpine@sha256:1b2479dd35a99687d6638f5976fd235e26c5b37e8122f786fcd5fe231d63de5b AS builder
+# PLEASE NOTE: required by download
+ARG GITHUB_TOKEN
 
 WORKDIR /app
 
 COPY package*.json ./
 RUN npm ci
 
-# Copy source
 COPY . ./
-
-ARG GITHUB_TOKEN
-
-# Download CRDs and build the static site
 RUN npm run download && npm run build
 
-# Runtime stage
-FROM node:22.0.0-alpine@sha256:1b2479dd35a99687d6638f5976fd235e26c5b37e8122f786fcd5fe231d63de5b
-
-
-WORKDIR /app
 
 ENV ASTRO_TELEMETRY_DISABLED=1 \
     HOME=/home/node
 
-COPY package*.json ./
-RUN npm ci
-
-# Copy built static site
-COPY --from=builder /app/dist ./dist
-
-ENV PORT=4321
+EXPOSE 4321
 
 USER node
 
-EXPOSE 4321
-
-# Serve the static site
-CMD ["npm", "run", "start"]
+ENTRYPOINT ["npm"]
+CMD ["run", "start"]
