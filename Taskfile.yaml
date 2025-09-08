@@ -1,10 +1,8 @@
-version: '1'
+version: '3'
 
 env:
-  ## container
-  REGISTRY_PREFIX: europe-docker.pkg.dev/ceiba-platform-cicd/
+  CONTAINER_REGISTRY: europe-docker.pkg.dev/ceiba-platform-cicd/
   CONTAINER_NAME: tools/kubespecdev
-
 
 tasks:
   install:
@@ -12,24 +10,36 @@ tasks:
     cmds:
       - npm ci
 
+  download:
+    desc: Download projects
+    requires:
+      vars: [ GITHUB_TOKEN ]
+    cmds:
+      - npm run download
+
+  build:
+    desc: Build pages
+    cmds:
+      - npm run build
+
   lint:
-    desc: Run Astro + TypeScript checks
+    desc: Run checks
     cmds:
       - npm run astro check
 
-  build-image:
+  build-container:
     desc: Build container image
     requires:
-      vars: [ REGISTRY_PREFIX, CONTAINER_NAME, CONTAINER_TAG, GITHUB_TOKEN ]
+      vars: [ CONTAINER_REGISTRY, CONTAINER_NAME, CONTAINER_TAG, GITHUB_TOKEN ]
     cmds:
       - |
         docker build . \
-        -t $(REGISTRY_PREFIX)$(CONTAINER_NAME):$(CONTAINER_TAG) \
-        --build-arg GITHUB_TOKEN=$(GITHUBH_TOKEN)
+        -t $(CONTAINER_REGISTRY)$(CONTAINER_NAME):$(CONTAINER_TAG) \
+        --build-arg GITHUB_TOKEN=$(GITHUB_TOKEN)
 
-  push:
-    desc: Push container image to Container Registry
+  push-to-registry:
+    desc: Push container image to registry
     requires:
-      vars: [ REGISTRY_PREFIX, CONTAINER_NAME, CONTAINER_TAG ]
+      vars: [ CONTAINER_REGISTRY, CONTAINER_NAME, CONTAINER_TAG ]
     cmds:
-      - docker push $(REGISTRY_PREFIX)$(CONTAINER_NAME):$(CONTAINER_TAG)
+      - docker push $(CONTAINER_REGISTRY)$(CONTAINER_NAME):$(CONTAINER_TAG)
