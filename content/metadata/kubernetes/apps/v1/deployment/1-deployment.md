@@ -1,29 +1,59 @@
 ---
-title: An NGINX deployment with 3 replicas
-description: In this example the Deployment will schedule 3 pods on the cluster. Note how the label `app:nginx` is used to match the pods to the Deployment
+title: An Deployment example with one container, with a configmap volume and emptydir volume
 ---
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
-  namespace: shopping-cart # Deployment is a namespaced resource
-  labels:
-    app: nginx
+  name: <your-app>
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: nginx
+  replicas: 1
+  revisionHistoryLimit: 5
   template:
     metadata:
-      labels:
-        app: nginx
+      annotations:
+        .......
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 2000
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: ds-wikis
       containers:
-        - name: nginx
-          image: nginx:1.19.5
+        - name: <container-name>
+          image: <image-name>
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
+            - name: .....
+              containerPort: .....
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: false
+          volumeMounts:
+            - name: <volume-name>
+              mountPath: <mount-path>
+            - name: <volume-name>
+              mountPath: <mount-path>
+      volumes:
+        - name: <volume-name>
+          configMap:
+            name: <configmap-name>
+        - name: <volume-name>
+          emptyDir:
+            sizeLimit: <size-limit>
 ```

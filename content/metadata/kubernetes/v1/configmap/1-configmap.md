@@ -1,18 +1,14 @@
 ---
-title: Create a ConfigMap with a few settings
-description: A basic example of how to create a ConfigMap with a few application settings and a file.
+title: ConfigMap
 ---
 
 ```yaml
-kind: ConfigMap
 apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: example-configmap
-  namespace: payments # ConfigMap is a namespaced resource
+  name: <configmap-name>
 data:
-  database_max_conn: 20
-  log_level: DEBUG
-
-  notes.txt: |
-    config maps can be mounted as files too
+  <KEY_1>: "<VALUE_1>"
+  <KEY_2>: "<VALUE_2>"
+  <KEY_3>: "<VALUE_3>"
 ```

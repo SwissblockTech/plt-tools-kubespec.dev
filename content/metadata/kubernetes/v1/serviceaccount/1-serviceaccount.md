@@ -1,12 +1,12 @@
 ---
-title: The simplest ServiceAccount
-description: All you need is a name and a namespace
+title: ServiceAccount
 ---
 
 ```yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: my-app-service-account # just give it a name and then use it on your Pods/Deployments/etc
-automountServiceAccountToken: false # you can opt out of the API credential automounting
+  name: <serviceaccount-name>
+  annotations:
+    iam.gke.io/gcp-service-account: <gcp-serviceaccount-name>
 ```

@@ -1,17 +1,17 @@
 ---
-title: Service of type ClusterIP
+title: Headless Service
 ---
 
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: <app-name>
+  name: <app-name>-headless
   labels:
-    app: <app-name>
+    app: <app-name>-headless
 spec:
+  clusterIP: None     # makes it headless
   ports:
-    - name:  <port-name>
       port: <port>  # service port
       protocol: TCP
       targetPort: <target-port>  # pod's port for internal routing

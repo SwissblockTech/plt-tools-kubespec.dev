@@ -1,0 +1,8 @@
+{
+  "links": [
+    {
+      "name": "Prometheus-operator Official Docs: Prometheus Rule",
+      "href": "https://prometheus-operator.dev/docs/developer/alerting/#deploying-prometheus-rules"
+    }
+  ]
+}
