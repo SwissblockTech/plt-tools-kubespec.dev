@@ -1,0 +1,8 @@
+{
+  "links": [
+    {
+      "name": "ConfigConnector Official Docs: CloudsqlInstance",
+      "href": "https://cloud.google.com/config-connector/docs/reference/resource-docs/sql/sqlinstance#postgres_sql_instance_high_availability"
+    }
+  ]
+}

@@ -17,3 +17,4 @@ spec:
     - role: roles/pubsub.subscriber
       members:
         - member: serviceAccount:<gcp-service-account-name>@<gcp-project-id>.iam.gserviceaccount.com
+```
