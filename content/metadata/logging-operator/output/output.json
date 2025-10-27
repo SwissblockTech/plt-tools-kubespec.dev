@@ -1,0 +1,12 @@
+{
+  "links": [
+    {
+      "name": "Logging-operator Official Docs: Output(Loki)",
+      "href": "https://kube-logging.dev/docs/configuration/plugins/outputs/loki/"
+    },
+    {
+      "name": "Logging-operator Official Docs: Output(GCS)",
+      "href": "https://kube-logging.dev/docs/configuration/plugins/outputs/gcs/"
+    }
+  ]
+}

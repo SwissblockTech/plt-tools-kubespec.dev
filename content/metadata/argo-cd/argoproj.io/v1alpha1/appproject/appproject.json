@@ -1,0 +1,8 @@
+{
+  "links": [
+    {
+      "name": "Argocd official documentation: AppProject",
+      "href": "https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#projects"
+    }
+  ]
+}

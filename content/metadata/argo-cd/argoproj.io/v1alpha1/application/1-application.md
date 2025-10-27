@@ -7,26 +7,24 @@ description: This example shows how to create an Application with auto-sync enab
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: hello-kube
-  labels:
-    key: value
+  name: <app-name>
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "<sync-wave>"
 spec:
-  project: production
+  project: <argo-project>
   source:
-    repoURL: https://git-provider.com/hello-kube
-    targetRevision: main
-    path: path/to/hello-kube/yaml/manifests
+    repoURL: <git-repo-url>
+    targetRevision: <branch-or-tag>
+    path: <manifest-path>
   destination:
-    name: production
-    namespace: hello-ns
+    name: <cluster-name>
+    namespace: <namespace>
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=false
+      - CreateNamespace=<true|false>
       - ApplyOutOfSyncOnly=true
       - PrunePropagationPolicy=foreground
       - PruneLast=true

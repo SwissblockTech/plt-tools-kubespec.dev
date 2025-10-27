@@ -1,53 +1,119 @@
 ---
-title: An NGINX statefulset with 3 replica's, a service and a volume
-description: In this example the Statefulset will schedule 3 pods on the cluster, each mounting the same volume. Note that there's also a Service defined, as ReplicaSets require a service.
+title: A Stateful set example. Note for a statefulset requires a headless service
 ---
 
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: nginx
-    namespace: shopping-cart # StatefulSet is a namespaced resource, so we need to match it
-  name: nginx
+  name: <your-app>-headless
 spec:
-  ports:
-  - port: 80
+  clusterIP: None
   selector:
-    app: nginx
----
+    app: <your-app>
+  ports:
+    - name: <main-port-name>
+      port: <main-port>
+      targetPort: <main-port-name>
+```
+
+```yaml
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: nginx-statefulset
-  namespace: shopping-cart # StatefulSet is a namespaced resource
+  name: <your-app>
 spec:
-  replicas: 3
+  serviceName: <your-app>-headless
+  replicas: 1
   selector:
     matchLabels:
-      app: nginx
-  serviceName: nginx
+      app: <your-app>
   template:
     metadata:
       labels:
-        app: nginx
+        app: <your-app>
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
       containers:
-      - image: nginx:1.19.5
-        name: nginx
-        ports:
-        - containerPort: 80
-        volumeMounts:
-        - mountPath: /usr/share/nginx/html
-          name: web-data
+        - name: <main-container-name>
+          image: <main-image>
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: <your-app>
+            - secretRef:
+                name: <your-app>
+          ports:
+            - name: <main-port-name>
+              containerPort: <main-port>
+          resources:
+            requests:
+              cpu: 1
+              memory: 512Mi
+            limits:
+              cpu: 1
+              memory: 512Mi
+          livenessProbe:
+            exec:
+              command:
+                .........
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
+          readinessProbe:
+            exec:
+              command:
+               ..........
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: <volume-name>
+              mountPath: <data-mount-path>
+      nodeSelector:
+        kubernetes.io/os: linux
+      tolerations:
+        - key: dedicated
+          operator: Equal
+          value: <toleration-value>
+          effect: NoSchedule
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: dedicated
+                    operator: In
+                    values:
+                      - <node-label-value>
   volumeClaimTemplates:
-  - metadata:
-      name: web-data
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 1Gi
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: <volume-name>
+        labels:
+          type: ssd
+          expandable: "true"
+      spec:
+        storageClassName: <storage-class>
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: <data-size>
 ```

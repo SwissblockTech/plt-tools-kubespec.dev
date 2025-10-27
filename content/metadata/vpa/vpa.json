@@ -1,0 +1,8 @@
+{
+  "links": [
+    {
+      "name": "VPA Github",
+      "href": "https://github.com/kubernetes/autoscaler/tree/9f87b78df0f1d6e142234bb32e8acbd71295585a/vertical-pod-autoscaler"
+    }
+  ]
+}
