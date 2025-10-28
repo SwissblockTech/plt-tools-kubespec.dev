@@ -150,7 +150,8 @@ const kindToCategory: Record<string, string> = {
   StatefulSet: "Workloads",
   Job: "Workloads",
   CronJob: "Workloads",
-  ,
+  ReplicaSet: "Workloads",
+  ReplicationController: "Workloads",
 
   Node: "Cluster",
   Event: "Cluster",
