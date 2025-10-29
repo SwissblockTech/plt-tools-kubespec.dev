@@ -1,5 +1,6 @@
 ---
-title: Flow with json format
+title: Flow with type logfmt
+---
 
 ```yaml
 apiVersion: logging.banzaicloud.io/v1beta1

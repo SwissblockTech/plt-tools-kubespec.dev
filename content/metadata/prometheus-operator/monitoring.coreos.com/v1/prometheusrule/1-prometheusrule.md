@@ -1,5 +1,6 @@
 ---
 title: PrometheusRule
+---
 
 ```yaml
 
@@ -20,6 +21,5 @@ spec:
             severity: critical
           annotations:
             summary: Prometheus target missing {{$labels.instance}}
-
 
 ```
