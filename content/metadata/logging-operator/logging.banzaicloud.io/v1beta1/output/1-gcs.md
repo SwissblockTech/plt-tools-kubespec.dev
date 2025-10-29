@@ -1,5 +1,6 @@
 ---
 title: Logging Operator Output (GCS)
+---
 
 ```yaml
 apiVersion: logging.banzaicloud.io/v1beta1

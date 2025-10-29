@@ -1,5 +1,6 @@
 ---
 title: Logging Operator Output (loki)
+---
 
 ```yaml
 apiVersion: logging.banzaicloud.io/v1beta1

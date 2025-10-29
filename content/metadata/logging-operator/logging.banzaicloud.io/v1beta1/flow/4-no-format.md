@@ -1,5 +1,6 @@
 ---
 title: Flow with no format
+---
 
 ```yaml
 

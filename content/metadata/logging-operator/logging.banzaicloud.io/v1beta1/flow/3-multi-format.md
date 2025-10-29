@@ -1,5 +1,6 @@
 ---
 title: Flow with multi format
+---
 
 ```yaml
 apiVersion: logging.banzaicloud.io/v1beta1
